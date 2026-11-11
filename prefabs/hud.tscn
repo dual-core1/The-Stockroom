@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://dm71f04w4wi7s"]
+
+[ext_resource type="Texture2D" uid="uid://cd3knqe8rdds3" path="res://graphics/hud.png" id="1_73jnp"]
+[ext_resource type="Script" uid="uid://bsey63yf18a0c" path="res://scripts/hud.gd" id="1_mbxvq"]
+[ext_resource type="Texture2D" uid="uid://83uju7wjavv3" path="res://graphics/lightning.png" id="2_d7ypv"]
+[ext_resource type="Texture2D" uid="uid://b4lt7hrkeskxf" path="res://graphics/shield.png" id="3_env85"]
+[ext_resource type="PackedScene" uid="uid://da1mom3p00k7g" path="res://prefabs/meter.tscn" id="3_mbxvq"]
+[ext_resource type="FontFile" uid="uid://c40m04xh8dkwv" path="res://fonts/PixelOperatorHB.ttf" id="4_mbxvq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ia4ll"]
+font = ExtResource("4_mbxvq")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_li2s2"]
+font = ExtResource("4_mbxvq")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ujfc"]
+font = ExtResource("4_mbxvq")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_xuq52"]
+font = ExtResource("4_mbxvq")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kxuq"]
+font = ExtResource("4_mbxvq")
+font_size = 20
+
+[sub_resource type="Animation" id="Animation_mbxvq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [371.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:a8")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ia4ll"]
+resource_name = "score_rise"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [371.0, 337.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:modulate:a8")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [255, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_li2s2"]
+_data = {
+&"RESET": SubResource("Animation_mbxvq"),
+&"score_rise": SubResource("Animation_ia4ll")
+}
+
+[node name="HUD" type="Control" unique_id=1570544407 node_paths=PackedStringArray("power_meter", "durability_meter", "dist_counter", "score_counter", "score_riser", "anim")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mbxvq")
+power_meter = NodePath("background/lightning/meter")
+durability_meter = NodePath("background/shield/meter")
+dist_counter = NodePath("background/distance/counter")
+score_counter = NodePath("background/this run/counter")
+score_riser = NodePath("Label")
+anim = NodePath("AnimationPlayer")
+
+[node name="background" type="TextureRect" parent="." unique_id=1611193198]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_73jnp")
+
+[node name="lightning" type="TextureRect" parent="background" unique_id=1005367155]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 14.0
+offset_right = 40.0
+offset_bottom = 48.0
+texture = ExtResource("2_d7ypv")
+
+[node name="meter" parent="background/lightning" unique_id=304336429 instance=ExtResource("3_mbxvq")]
+layout_mode = 1
+offset_left = 39.0
+offset_top = 6.0
+offset_right = 39.0
+offset_bottom = 6.0
+
+[node name="shield" type="TextureRect" parent="background" unique_id=608121177]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 47.0
+offset_right = 46.0
+offset_bottom = 81.0
+texture = ExtResource("3_env85")
+
+[node name="meter" parent="background/shield" unique_id=602459839 instance=ExtResource("3_mbxvq")]
+layout_mode = 1
+offset_left = 39.0
+offset_top = 7.0
+offset_right = 39.0
+offset_bottom = 7.0
+
+[node name="distance" type="Label" parent="background" unique_id=1441338997]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 14.0
+offset_right = 350.0
+offset_bottom = 37.0
+text = "DISTANCE"
+label_settings = SubResource("LabelSettings_ia4ll")
+
+[node name="counter" type="Label" parent="background/distance" unique_id=528307555]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 15.0
+offset_right = 90.0
+offset_bottom = 56.0
+text = "00000"
+label_settings = SubResource("LabelSettings_li2s2")
+
+[node name="this run" type="Label" parent="background" unique_id=454232556]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 14.0
+offset_right = 559.0
+offset_bottom = 37.0
+text = "THIS RUN"
+label_settings = SubResource("LabelSettings_7ujfc")
+
+[node name="counter" type="Label" parent="background/this run" unique_id=1094024741]
+layout_mode = 0
+offset_left = -22.0
+offset_top = 17.0
+offset_right = 98.0
+offset_bottom = 58.0
+text = "000000"
+label_settings = SubResource("LabelSettings_xuq52")
+
+[node name="Label" type="Label" parent="." unique_id=1582694990]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 503.0
+offset_top = 371.0
+offset_right = 543.0
+offset_bottom = 394.0
+text = "000"
+label_settings = SubResource("LabelSettings_4kxuq")
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=755431244]
+libraries/ = SubResource("AnimationLibrary_li2s2")

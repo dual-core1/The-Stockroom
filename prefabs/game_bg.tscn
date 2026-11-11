@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c0lqu3pot5hlu"]
+
+[ext_resource type="Script" uid="uid://peu7miugvhxs" path="res://scripts/game_bg.gd" id="1_m6nxc"]
+[ext_resource type="Texture2D" uid="uid://ckjet5whgh7k" path="res://graphics/lvl_bg.png" id="1_peahj"]
+
+[node name="game bg" type="Node2D" unique_id=1342806941]
+
+[node name="slide" type="Sprite2D" parent="." unique_id=1993790945]
+texture_repeat = 2
+texture = ExtResource("1_peahj")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 640, 343)
+script = ExtResource("1_m6nxc")

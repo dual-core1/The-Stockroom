@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://vj2wo18dw2qx"]
+
+[ext_resource type="PackedScene" uid="uid://dm71f04w4wi7s" path="res://prefabs/hud.tscn" id="1_7biu0"]
+[ext_resource type="Script" uid="uid://cf4rwmw78flgs" path="res://scripts/gameplay.gd" id="1_ocj2s"]
+[ext_resource type="PackedScene" uid="uid://c0lqu3pot5hlu" path="res://prefabs/game_bg.tscn" id="2_00tan"]
+[ext_resource type="PackedScene" uid="uid://436blys8fiac" path="res://prefabs/box.tscn" id="2_4bh5q"]
+[ext_resource type="Texture2D" uid="uid://bnow10524jfri" path="res://graphics/blank.png" id="2_l1v76"]
+[ext_resource type="PackedScene" uid="uid://bglps7gjety6q" path="res://prefabs/transition.tscn" id="3_din8e"]
+[ext_resource type="PackedScene" uid="uid://dqcl5daore3si" path="res://prefabs/player.tscn" id="4_ct7aa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(39, 384)
+
+[node name="gameplay" type="Node2D" unique_id=9868997 node_paths=PackedStringArray("transition", "spawn_timer", "bg", "hud", "player")]
+script = ExtResource("1_ocj2s")
+transition = NodePath("CanvasLayer/transition")
+box = ExtResource("2_4bh5q")
+spawn_timer = NodePath("Timer")
+bg = NodePath("game bg")
+hud = NodePath("CanvasLayer/HUD")
+player = NodePath("player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1822104391]
+
+[node name="HUD" parent="CanvasLayer" unique_id=1570544407 instance=ExtResource("1_7biu0")]
+
+[node name="transition" parent="CanvasLayer" unique_id=1768758961 instance=ExtResource("3_din8e")]
+visible = false
+
+[node name="floor" type="Sprite2D" parent="." unique_id=199158530]
+texture = ExtResource("2_l1v76")
+centered = false
+
+[node name="game bg" parent="." unique_id=1342806941 instance=ExtResource("2_00tan")]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1432635654]
+position = Vector2(320, 240)
+
+[node name="player" parent="." unique_id=1765128728 instance=ExtResource("4_ct7aa")]
+position = Vector2(108, 319)
+
+[node name="Timer" type="Timer" parent="." unique_id=929029189]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2091739780]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=121135647]
+position = Vector2(170.5, 192)
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

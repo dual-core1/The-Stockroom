@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://dqcl5daore3si"]
+
+[ext_resource type="Script" uid="uid://qwuu0d2swvr0" path="res://scripts/player.gd" id="1_g2jcq"]
+[ext_resource type="Texture2D" uid="uid://divx87ukj01o2" path="res://graphics/pallet_jack.png" id="1_r66lb"]
+[ext_resource type="Texture2D" uid="uid://dqnxv4tgnpahn" path="res://graphics/alyssa01.png" id="2_1txc5"]
+[ext_resource type="Texture2D" uid="uid://h4bcf378w88m" path="res://graphics/alyssa02.png" id="3_ht1c8"]
+[ext_resource type="Texture2D" uid="uid://c4ofbi2qtcidl" path="res://graphics/alyssa03.png" id="4_ht1c8"]
+[ext_resource type="Texture2D" uid="uid://yg6yuxmti1kt" path="res://graphics/alyssa04.png" id="5_g2jcq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2jcq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1txc5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ht1c8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ht1c8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_g2jcq")
+}],
+"loop": 0,
+"name": &"wipeout",
+"speed": 1.0
+}]
+
+[sub_resource type="Animation" id="Animation_ht1c8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("container:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("container:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("container/alyssa:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("container/alyssa:position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [-25.0]
+}
+
+[sub_resource type="Animation" id="Animation_g2jcq"]
+resource_name = "dodge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("container:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.36602148, 0.3661, 1),
+"update": 0,
+"values": [0.0, -28.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u51tk"]
+resource_name = "flip"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("container:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.283185307179586]
+}
+
+[sub_resource type="Animation" id="Animation_kbsxf"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("container:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.2773924, 2.8284266, 1),
+"update": 0,
+"values": [0.0, -128.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_rgeog"]
+resource_name = "wipeout"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("container/alyssa:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.34151006, 1),
+"update": 0,
+"values": [0.0, 400.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("container/alyssa:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.36602122, 1),
+"update": 0,
+"values": [-100.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u51tk"]
+_data = {
+&"RESET": SubResource("Animation_ht1c8"),
+&"dodge": SubResource("Animation_g2jcq"),
+&"flip": SubResource("Animation_u51tk"),
+&"jump": SubResource("Animation_kbsxf"),
+&"wipeout": SubResource("Animation_rgeog")
+}
+
+[node name="player" type="Node2D" unique_id=1765128728 node_paths=PackedStringArray("alyssa", "anim_player")]
+script = ExtResource("1_g2jcq")
+alyssa = NodePath("container/alyssa")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="container" type="Node2D" parent="." unique_id=1605971811]
+
+[node name="pallet jack" type="Sprite2D" parent="container" unique_id=2068105391]
+texture = ExtResource("1_r66lb")
+
+[node name="alyssa" type="AnimatedSprite2D" parent="container" unique_id=608513512]
+position = Vector2(15, -25)
+sprite_frames = SubResource("SpriteFrames_g2jcq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1925190003]
+libraries/ = SubResource("AnimationLibrary_u51tk")
