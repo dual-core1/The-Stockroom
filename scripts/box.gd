@@ -1,6 +1,7 @@
-extends Node2D
+class_name Box extends Node2D
 
 var speed: float
+var dodged: bool = false
 
 func _ready():
 	speed = Values.base_speed + (50 * Values.speed_lvl)

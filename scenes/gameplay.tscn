@@ -6,19 +6,65 @@
 [ext_resource type="PackedScene" uid="uid://436blys8fiac" path="res://prefabs/box.tscn" id="2_4bh5q"]
 [ext_resource type="Texture2D" uid="uid://bnow10524jfri" path="res://graphics/blank.png" id="2_l1v76"]
 [ext_resource type="PackedScene" uid="uid://bglps7gjety6q" path="res://prefabs/transition.tscn" id="3_din8e"]
+[ext_resource type="PackedScene" uid="uid://bc8gv7b1pxeea" path="res://prefabs/ramp.tscn" id="3_e124b"]
 [ext_resource type="PackedScene" uid="uid://dqcl5daore3si" path="res://prefabs/player.tscn" id="4_ct7aa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(39, 384)
 
-[node name="gameplay" type="Node2D" unique_id=9868997 node_paths=PackedStringArray("transition", "spawn_timer", "bg", "hud", "player")]
+[sub_resource type="Environment" id="Environment_e124b"]
+background_mode = 3
+glow_enabled = true
+adjustment_enabled = true
+
+[sub_resource type="Animation" id="Animation_e124b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_101mb"]
+resource_name = "special"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_brightness")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hbo4f"]
+_data = {
+&"RESET": SubResource("Animation_e124b"),
+&"special": SubResource("Animation_101mb")
+}
+
+[node name="gameplay" type="Node2D" unique_id=9868997 node_paths=PackedStringArray("transition", "spawn_timer", "power_decay_timer", "bg", "hud", "player", "env_anim")]
 script = ExtResource("1_ocj2s")
 transition = NodePath("CanvasLayer/transition")
 box = ExtResource("2_4bh5q")
-spawn_timer = NodePath("Timer")
+ramp = ExtResource("3_e124b")
+spawn_timer = NodePath("spawn")
+power_decay_timer = NodePath("power decay")
 bg = NodePath("game bg")
 hud = NodePath("CanvasLayer/HUD")
 player = NodePath("player")
+env_anim = NodePath("environment animator")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1822104391]
 
@@ -39,7 +85,9 @@ position = Vector2(320, 240)
 [node name="player" parent="." unique_id=1765128728 instance=ExtResource("4_ct7aa")]
 position = Vector2(108, 319)
 
-[node name="Timer" type="Timer" parent="." unique_id=929029189]
+[node name="spawn" type="Timer" parent="." unique_id=929029189]
+
+[node name="power decay" type="Timer" parent="." unique_id=1302598427]
 
 [node name="Area2D" type="Area2D" parent="." unique_id=2091739780]
 
@@ -47,6 +95,13 @@ position = Vector2(108, 319)
 position = Vector2(170.5, 192)
 shape = SubResource("RectangleShape2D_4kxuq")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1892689021]
+environment = SubResource("Environment_e124b")
+
+[node name="environment animator" type="AnimationPlayer" parent="." unique_id=1134755289]
+libraries/ = SubResource("AnimationLibrary_hbo4f")
+
+[connection signal="timeout" from="spawn" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="power decay" to="." method="_on_power_decay_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

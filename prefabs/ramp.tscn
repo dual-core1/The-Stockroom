@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bc8gv7b1pxeea"]
+
+[ext_resource type="Script" uid="uid://b15b21c5p6r4k" path="res://scripts/ramp.gd" id="1_g5644"]
+[ext_resource type="Texture2D" uid="uid://1bmlk4yhuxc2" path="res://graphics/ramp.png" id="1_ngryf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(64, 64)
+
+[node name="ramp" type="AnimatableBody2D" unique_id=1749353130]
+script = ExtResource("1_g5644")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=630996958]
+texture = ExtResource("1_ngryf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=598261800]
+position = Vector2(3, 0)
+shape = SubResource("RectangleShape2D_4kxuq")
