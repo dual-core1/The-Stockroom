@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://h4bcf378w88m" path="res://graphics/alyssa02.png" id="3_ht1c8"]
 [ext_resource type="Texture2D" uid="uid://c4ofbi2qtcidl" path="res://graphics/alyssa03.png" id="4_ht1c8"]
 [ext_resource type="Texture2D" uid="uid://yg6yuxmti1kt" path="res://graphics/alyssa04.png" id="5_g2jcq"]
-[ext_resource type="Animation" uid="uid://mfgd8yj25e68" path="res://flip.anim" id="7_u51tk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_g2jcq"]
 animations = [{
@@ -159,7 +158,6 @@ tracks/1/keys = {
 _data = {
 &"RESET": SubResource("Animation_ht1c8"),
 &"dodge": SubResource("Animation_g2jcq"),
-&"flip": ExtResource("7_u51tk"),
 &"jump": SubResource("Animation_kbsxf"),
 &"wipeout": SubResource("Animation_rgeog")
 }
