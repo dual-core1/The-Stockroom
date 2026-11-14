@@ -70,6 +70,7 @@ func _process(delta: float):
 			player.stop()
 		
 		if player.flipping and not player.jumping:
+			avoid_retrigger = true
 			Values.game_over = true
 			slide.state = game_bg.DECEL
 			game_over.set_text("WIPEOUT!")
@@ -83,6 +84,14 @@ func _process(delta: float):
 			var battery_instance = battery.instantiate()
 			battery_instance.global_position = Vector2(665, 350)
 			add_child(battery_instance)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey \
+	and event.pressed \
+	and not event.echo \
+	and Values.game_over:
+		if not transition.already_closed:
+			transition.close()
 
 # for the spawn timer, which was originally just "Timer"
 func _on_timer_timeout() -> void:
@@ -111,7 +120,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			var this_box: Box = body as Box
 			this_box.dodged = true
 	
-	if not Values.player_dodging and not player.jumping and body.is_in_group("battery"):
+	if not Values.player_dodging \
+	and not player.jumping \
+	and body.is_in_group("battery"):
 		body.queue_free()
 		Values.curr_power += 3 + (Values.power_lvl)
 		if Values.curr_power > Values.max_power:
