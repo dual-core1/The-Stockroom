@@ -14,6 +14,9 @@ func _ready() -> void:
 	alyssa.play("default")
 	anim_player.animation_finished.connect(_on_dodge_finished)
 
+func stop():
+	alyssa.stop()
+
 func check_successful_stunt():
 	if landed_jump and landed_flip and not Values.game_over:
 		landed_jump = false

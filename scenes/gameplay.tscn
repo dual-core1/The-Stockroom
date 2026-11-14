@@ -4,10 +4,12 @@
 [ext_resource type="Script" uid="uid://cf4rwmw78flgs" path="res://scripts/gameplay.gd" id="1_ocj2s"]
 [ext_resource type="PackedScene" uid="uid://c0lqu3pot5hlu" path="res://prefabs/game_bg.tscn" id="2_00tan"]
 [ext_resource type="PackedScene" uid="uid://436blys8fiac" path="res://prefabs/box.tscn" id="2_4bh5q"]
+[ext_resource type="PackedScene" uid="uid://dqkl22n1wrulo" path="res://prefabs/battery.tscn" id="2_hbo4f"]
 [ext_resource type="Texture2D" uid="uid://bnow10524jfri" path="res://graphics/blank.png" id="2_l1v76"]
 [ext_resource type="PackedScene" uid="uid://bglps7gjety6q" path="res://prefabs/transition.tscn" id="3_din8e"]
 [ext_resource type="PackedScene" uid="uid://bc8gv7b1pxeea" path="res://prefabs/ramp.tscn" id="3_e124b"]
 [ext_resource type="PackedScene" uid="uid://dqcl5daore3si" path="res://prefabs/player.tscn" id="4_ct7aa"]
+[ext_resource type="PackedScene" uid="uid://0r1yqoooglcq" path="res://prefabs/game_over.tscn" id="5_101mb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(39, 384)
@@ -54,21 +56,25 @@ _data = {
 &"special": SubResource("Animation_101mb")
 }
 
-[node name="gameplay" type="Node2D" unique_id=9868997 node_paths=PackedStringArray("transition", "spawn_timer", "power_decay_timer", "bg", "hud", "player", "env_anim")]
+[node name="gameplay" type="Node2D" unique_id=9868997 node_paths=PackedStringArray("bg", "env_anim", "game_over", "hud", "player", "power_decay_timer", "spawn_timer", "transition")]
 script = ExtResource("1_ocj2s")
-transition = NodePath("CanvasLayer/transition")
-box = ExtResource("2_4bh5q")
-ramp = ExtResource("3_e124b")
-spawn_timer = NodePath("spawn")
-power_decay_timer = NodePath("power decay")
+battery = ExtResource("2_hbo4f")
 bg = NodePath("game bg")
+box = ExtResource("2_4bh5q")
+env_anim = NodePath("environment animator")
+game_over = NodePath("CanvasLayer/game over")
 hud = NodePath("CanvasLayer/HUD")
 player = NodePath("player")
-env_anim = NodePath("environment animator")
+power_decay_timer = NodePath("power decay")
+ramp = ExtResource("3_e124b")
+spawn_timer = NodePath("spawn")
+transition = NodePath("CanvasLayer/transition")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1822104391]
 
 [node name="HUD" parent="CanvasLayer" unique_id=1570544407 instance=ExtResource("1_7biu0")]
+
+[node name="game over" parent="CanvasLayer" unique_id=1014878504 instance=ExtResource("5_101mb")]
 
 [node name="transition" parent="CanvasLayer" unique_id=1768758961 instance=ExtResource("3_din8e")]
 visible = false

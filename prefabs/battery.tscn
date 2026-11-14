@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dqkl22n1wrulo"]
+
+[ext_resource type="Script" uid="uid://dc50v81hj4pvp" path="res://scripts/battery.gd" id="1_gm4tm"]
+[ext_resource type="Texture2D" uid="uid://dmqrckoe7iana" path="res://graphics/battery.png" id="1_wsy6w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(24, 48)
+
+[node name="battery" type="AnimatableBody2D" unique_id=1956947758]
+script = ExtResource("1_gm4tm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1970139472]
+texture = ExtResource("1_wsy6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1432492788]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_4kxuq")
