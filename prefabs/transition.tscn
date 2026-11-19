@@ -174,3 +174,5 @@ color = Color(0, 0.039215688, 0.30980393, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=198053388]
 libraries/ = SubResource("AnimationLibrary_ovq7l")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -84,6 +84,9 @@ func _process(delta: float):
 			var battery_instance = battery.instantiate()
 			battery_instance.global_position = Vector2(665, 350)
 			add_child(battery_instance)
+		
+		if transition.ready_to_go:
+			get_tree().change_scene_to_file("res://scenes/results.tscn")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey \

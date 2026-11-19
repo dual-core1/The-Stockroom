@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://dinooip4p1ng0"]
+
+[ext_resource type="Script" uid="uid://dsbm76ciej6y8" path="res://scripts/results.gd" id="1_21kdr"]
+[ext_resource type="FontFile" uid="uid://c40m04xh8dkwv" path="res://fonts/PixelOperatorHB.ttf" id="1_qh7lt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kxuq"]
+font = ExtResource("1_qh7lt")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_mti6b"]
+font = ExtResource("1_qh7lt")
+font_size = 30
+
+[sub_resource type="Animation" id="Animation_qh7lt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [255]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/total:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/bar:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_s58my"]
+resource_name = "conceal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 255]
+}
+
+[sub_resource type="Animation" id="Animation_21kdr"]
+resource_name = "reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [255, 0]
+}
+
+[sub_resource type="Animation" id="Animation_r4wmc"]
+resource_name = "show total"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/bar:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1e-05, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/total:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s58my"]
+_data = {
+&"RESET": SubResource("Animation_qh7lt"),
+&"conceal": SubResource("Animation_s58my"),
+&"reveal": SubResource("Animation_21kdr"),
+&"show total": SubResource("Animation_r4wmc")
+}
+
+[node name="results" type="Node2D" unique_id=389123539 node_paths=PackedStringArray("anim", "dist_txt", "score_txt", "total_txt")]
+script = ExtResource("1_21kdr")
+anim = NodePath("AnimationPlayer")
+dist_txt = NodePath("CanvasLayer/distance/value")
+score_txt = NodePath("CanvasLayer/score/value")
+total_txt = NodePath("CanvasLayer/total/value")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2105055595]
+
+[node name="background" type="ColorRect" parent="CanvasLayer" unique_id=2098236572]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0, 0.039215688, 0.30980393, 1)
+
+[node name="title" type="Label" parent="CanvasLayer" unique_id=1156275949]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_top = 20.0
+offset_right = 66.5
+offset_bottom = 61.0
+grow_horizontal = 2
+text = "Results"
+label_settings = SubResource("LabelSettings_4kxuq")
+horizontal_alignment = 1
+
+[node name="distance" type="Label" parent="CanvasLayer" unique_id=524673915]
+offset_left = 47.0
+offset_top = 98.0
+offset_right = 173.0
+offset_bottom = 129.0
+text = "Distance:"
+label_settings = SubResource("LabelSettings_mti6b")
+
+[node name="value" type="Label" parent="CanvasLayer/distance" unique_id=1472736946]
+layout_mode = 0
+offset_left = 449.0
+offset_right = 524.0
+offset_bottom = 31.0
+text = "0"
+label_settings = SubResource("LabelSettings_mti6b")
+horizontal_alignment = 2
+
+[node name="score" type="Label" parent="CanvasLayer" unique_id=976053754]
+offset_left = 47.0
+offset_top = 129.0
+offset_right = 133.0
+offset_bottom = 160.0
+text = "Score:"
+label_settings = SubResource("LabelSettings_mti6b")
+
+[node name="value" type="Label" parent="CanvasLayer/score" unique_id=184807388]
+layout_mode = 0
+offset_left = 449.0
+offset_right = 524.0
+offset_bottom = 31.0
+text = "0"
+label_settings = SubResource("LabelSettings_mti6b")
+horizontal_alignment = 2
+
+[node name="total" type="Label" parent="CanvasLayer" unique_id=43555418]
+visible = false
+offset_left = 47.0
+offset_top = 365.0
+offset_right = 128.0
+offset_bottom = 396.0
+text = "Total:"
+label_settings = SubResource("LabelSettings_mti6b")
+
+[node name="value" type="Label" parent="CanvasLayer/total" unique_id=69949333]
+layout_mode = 0
+offset_left = 449.0
+offset_right = 524.0
+offset_bottom = 31.0
+text = "0"
+label_settings = SubResource("LabelSettings_mti6b")
+horizontal_alignment = 2
+
+[node name="bar" type="ColorRect" parent="CanvasLayer" unique_id=1501070389]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = 102.0
+offset_right = 295.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1)
+pivot_offset_ratio = Vector2(0.5, 0)
+
+[node name="fade" type="ColorRect" parent="CanvasLayer" unique_id=328067253]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0, 0.039215688, 0.30980393, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=793529944]
+libraries/ = SubResource("AnimationLibrary_s58my")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

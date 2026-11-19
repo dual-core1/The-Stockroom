@@ -1,0 +1,251 @@
+[gd_scene format=3 uid="uid://bgmwfbx37rrl2"]
+
+[ext_resource type="FontFile" uid="uid://c40m04xh8dkwv" path="res://fonts/PixelOperatorHB.ttf" id="1_a0ma6"]
+[ext_resource type="Script" uid="uid://cetuwetpdqaeh" path="res://scripts/upgrades.gd" id="1_ef3hr"]
+[ext_resource type="Texture2D" uid="uid://83uju7wjavv3" path="res://graphics/lightning.png" id="2_15hgd"]
+[ext_resource type="Texture2D" uid="uid://d2vktv6y2jttj" path="res://graphics/speed_icon.png" id="3_jcj7r"]
+[ext_resource type="Script" uid="uid://07xw4qctnpa4" path="res://scripts/upgrade_button.gd" id="3_js5n2"]
+[ext_resource type="Texture2D" uid="uid://b4lt7hrkeskxf" path="res://graphics/shield.png" id="4_js5n2"]
+[ext_resource type="Script" uid="uid://cokl2wlbijjm4" path="res://scripts/points_display.gd" id="6_js5n2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1xumc"]
+font = ExtResource("1_a0ma6")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_a0ma6"]
+font = ExtResource("1_a0ma6")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kxuq"]
+font = ExtResource("1_a0ma6")
+
+[sub_resource type="LabelSettings" id="LabelSettings_mti6b"]
+font = ExtResource("1_a0ma6")
+
+[sub_resource type="Animation" id="Animation_ef3hr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [255]
+}
+
+[sub_resource type="Animation" id="Animation_vi17a"]
+resource_name = "conceal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 255]
+}
+
+[sub_resource type="Animation" id="Animation_h5bgf"]
+resource_name = "reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [255, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5wf0v"]
+_data = {
+&"RESET": SubResource("Animation_ef3hr"),
+&"conceal": SubResource("Animation_vi17a"),
+&"reveal": SubResource("Animation_h5bgf")
+}
+
+[node name="upgrades" type="Node2D" unique_id=1078709068]
+script = ExtResource("1_ef3hr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1387892954]
+
+[node name="background" type="ColorRect" parent="CanvasLayer" unique_id=1160110507]
+offset_right = 640.0
+offset_bottom = 480.0
+color = Color(0, 0.039215688, 0.30980393, 1)
+
+[node name="title" type="Label" parent="CanvasLayer" unique_id=113754595]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.5
+offset_top = 20.0
+offset_right = 66.5
+offset_bottom = 61.0
+grow_horizontal = 2
+text = "Purchase Upgrades"
+label_settings = SubResource("LabelSettings_1xumc")
+horizontal_alignment = 1
+
+[node name="upgrade power" type="Label" parent="CanvasLayer" unique_id=1364783196]
+offset_left = 159.0
+offset_top = 88.0
+offset_right = 348.0
+offset_bottom = 119.0
+text = "Upgrade Power"
+label_settings = SubResource("LabelSettings_a0ma6")
+
+[node name="desc" type="Label" parent="CanvasLayer/upgrade power" unique_id=777743008]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 40.0
+offset_bottom = 58.0
+text = "Power represents the pallet jack's internal battery.
+More power, more distance."
+label_settings = SubResource("LabelSettings_4kxuq")
+
+[node name="Button" type="Button" parent="CanvasLayer/upgrade power" unique_id=1865997385]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.55600005
+anchor_top = 0.51600003
+anchor_right = -0.55600005
+anchor_bottom = 0.51600003
+offset_left = 0.08400726
+offset_top = 0.0039987564
+offset_right = 91.08401
+offset_bottom = 42.003998
+theme_override_fonts/font = ExtResource("1_a0ma6")
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("2_15hgd")
+flat = true
+expand_icon = true
+script = ExtResource("3_js5n2")
+type = 1
+
+[node name="upgrade speed" type="Label" parent="CanvasLayer" unique_id=1069396749]
+offset_left = 160.0
+offset_top = 188.0
+offset_right = 349.0
+offset_bottom = 219.0
+text = "Upgrade Speed"
+label_settings = SubResource("LabelSettings_a0ma6")
+
+[node name="desc" type="Label" parent="CanvasLayer/upgrade speed" unique_id=806261236]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 40.0
+offset_bottom = 58.0
+text = "Speed is how quickly the pallet jack can go, at a minor
+increase to power consumption."
+label_settings = SubResource("LabelSettings_4kxuq")
+
+[node name="Button" type="Button" parent="CanvasLayer/upgrade speed" unique_id=628291170]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.55600005
+anchor_top = 0.51600003
+anchor_right = -0.55600005
+anchor_bottom = 0.51600003
+offset_left = 0.08400726
+offset_top = 0.0039987564
+offset_right = 91.08401
+offset_bottom = 42.003998
+theme_override_fonts/font = ExtResource("1_a0ma6")
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("3_jcj7r")
+flat = true
+expand_icon = true
+script = ExtResource("3_js5n2")
+type = 2
+
+[node name="upgrade durability" type="Label" parent="CanvasLayer" unique_id=1267352344]
+offset_left = 160.0
+offset_top = 291.0
+offset_right = 409.0
+offset_bottom = 322.0
+text = "Upgrade Durability"
+label_settings = SubResource("LabelSettings_a0ma6")
+
+[node name="desc" type="Label" parent="CanvasLayer/upgrade durability" unique_id=847528545]
+layout_mode = 0
+offset_top = 35.0
+offset_right = 40.0
+offset_bottom = 58.0
+text = "Durability is how much of a beating the pallet jack can
+take."
+label_settings = SubResource("LabelSettings_4kxuq")
+
+[node name="Button" type="Button" parent="CanvasLayer/upgrade durability" unique_id=292465721]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.42200002
+anchor_top = 0.323
+anchor_right = -0.42200002
+anchor_bottom = 0.323
+offset_left = 0.07800293
+offset_top = -0.013000488
+offset_right = 91.07801
+offset_bottom = 41.987
+theme_override_fonts/font = ExtResource("1_a0ma6")
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("4_js5n2")
+flat = true
+expand_icon = true
+script = ExtResource("3_js5n2")
+type = 3
+
+[node name="points" type="Label" parent="CanvasLayer" unique_id=1489625363]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.5
+offset_top = 62.0
+offset_right = 51.5
+offset_bottom = 85.0
+grow_horizontal = 2
+label_settings = SubResource("LabelSettings_mti6b")
+horizontal_alignment = 1
+script = ExtResource("6_js5n2")
+
+[node name="continue" type="Button" parent="CanvasLayer" unique_id=51440849]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -68.0
+offset_right = 61.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_a0ma6")
+theme_override_font_sizes/font_size = 30
+text = "Continue"
+flat = true
+
+[node name="fade" type="ColorRect" parent="CanvasLayer" unique_id=1174683244]
+offset_right = 640.0
+offset_bottom = 480.0
+mouse_filter = 2
+color = Color(0, 0.039215688, 0.30980393, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1958265719]
+libraries/ = SubResource("AnimationLibrary_5wf0v")
+
+[connection signal="pressed" from="CanvasLayer/continue" to="." method="_on_continue_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

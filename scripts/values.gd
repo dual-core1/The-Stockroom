@@ -7,11 +7,12 @@ const costs: Array[int] = [
 	1000,
 	2000,
 	5000,
+	7000,
+	9000,
 	10000,
-	20000,
-	25000,
-	40000
-]
+	11000,
+	0        # This is a placeholder value to prevent out of bounds errors.
+]            # The max is 9, not 10
 
 const base_power: int = 10
 const base_speed: int = 200
