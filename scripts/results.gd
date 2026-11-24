@@ -48,7 +48,7 @@ func _process(delta: float):
 			
 			if limit >= 5.0:
 				score_display = Values.run_score
-				score_txt.txt = str(score_display)
+				score_txt.text = str(score_display)
 				
 			if score_display == Values.run_score:
 				state = WAIT_DISPLAY_TOTAL

@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://br5ikwmjo8eb0" path="res://graphics/computer.png" id="1_om4aa"]
 [ext_resource type="Script" uid="uid://c3fsc2x6ua1y1" path="res://scripts/computer.gd" id="1_tjrug"]
 [ext_resource type="Texture2D" uid="uid://cd3knqe8rdds3" path="res://graphics/hud.png" id="2_7ikar"]
+[ext_resource type="Texture2D" uid="uid://ba6s376j3gs2w" path="res://graphics/portrait 1.png" id="2_ruko6"]
 [ext_resource type="FontFile" uid="uid://c40m04xh8dkwv" path="res://fonts/PixelOperatorHB.ttf" id="3_tjrug"]
+[ext_resource type="Texture2D" uid="uid://bsjgj5i1ff63a" path="res://graphics/portrait 2.png" id="3_ur38h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4kxuq"]
 font = ExtResource("3_tjrug")
@@ -21,7 +23,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -85,9 +87,12 @@ _data = {
 &"fade out": SubResource("Animation_ruko6")
 }
 
-[node name="computer" type="Node2D" unique_id=1486138614 node_paths=PackedStringArray("anim")]
+[node name="computer" type="Node2D" unique_id=1486138614 node_paths=PackedStringArray("anim", "line", "display")]
 script = ExtResource("1_tjrug")
 anim = NodePath("AnimationPlayer")
+line = NodePath("CanvasLayer/text box/content")
+display = NodePath("CanvasLayer/text box/portrait")
+portraits = Array[Texture2D]([ExtResource("2_ruko6"), ExtResource("3_ur38h")])
 
 [node name="bg" type="Sprite2D" parent="." unique_id=964184151]
 texture = ExtResource("1_om4aa")
@@ -124,7 +129,6 @@ offset_top = -100.0
 offset_right = 115.0
 
 [node name="fade" type="ColorRect" parent="CanvasLayer" unique_id=408066007]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -134,3 +138,5 @@ color = Color(0, 0.039215688, 0.30980393, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=58171258]
 libraries/ = SubResource("AnimationLibrary_ur38h")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
