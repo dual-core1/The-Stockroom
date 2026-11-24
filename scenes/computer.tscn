@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://c7n6aitnb01x"]
+
+[ext_resource type="Texture2D" uid="uid://br5ikwmjo8eb0" path="res://graphics/computer.png" id="1_om4aa"]
+[ext_resource type="Script" uid="uid://c3fsc2x6ua1y1" path="res://scripts/computer.gd" id="1_tjrug"]
+[ext_resource type="Texture2D" uid="uid://cd3knqe8rdds3" path="res://graphics/hud.png" id="2_7ikar"]
+[ext_resource type="FontFile" uid="uid://c40m04xh8dkwv" path="res://fonts/PixelOperatorHB.ttf" id="3_tjrug"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kxuq"]
+font = ExtResource("3_tjrug")
+font_size = 20
+
+[sub_resource type="Animation" id="Animation_tjrug"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [255]
+}
+
+[sub_resource type="Animation" id="Animation_uiul0"]
+resource_name = "fade in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [255, 0]
+}
+
+[sub_resource type="Animation" id="Animation_ruko6"]
+resource_name = "fade out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/fade:color:a8")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 255]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ur38h"]
+_data = {
+&"RESET": SubResource("Animation_tjrug"),
+&"fade in": SubResource("Animation_uiul0"),
+&"fade out": SubResource("Animation_ruko6")
+}
+
+[node name="computer" type="Node2D" unique_id=1486138614 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_tjrug")
+anim = NodePath("AnimationPlayer")
+
+[node name="bg" type="Sprite2D" parent="." unique_id=964184151]
+texture = ExtResource("1_om4aa")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1472697707]
+
+[node name="text box" type="TextureRect" parent="CanvasLayer" unique_id=1469054364]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -48.0
+offset_right = 320.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_7ikar")
+
+[node name="content" type="Label" parent="CanvasLayer/text box" unique_id=1262222178]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 628.0
+offset_bottom = 82.0
+label_settings = SubResource("LabelSettings_4kxuq")
+
+[node name="portrait" type="TextureRect" parent="CanvasLayer/text box" unique_id=1722205331]
+layout_mode = 0
+offset_left = 15.0
+offset_top = -100.0
+offset_right = 115.0
+
+[node name="fade" type="ColorRect" parent="CanvasLayer" unique_id=408066007]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.039215688, 0.30980393, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=58171258]
+libraries/ = SubResource("AnimationLibrary_ur38h")

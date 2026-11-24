@@ -21,6 +21,7 @@ var score_display: int = 0
 var total_display: int = 0
 var avoid_retrigger: bool = false
 var done: bool = false
+var limit: float = 0.0 # limits counters to 5 seconds each
 
 func _ready():
 	anim.play("reveal")
@@ -30,15 +31,28 @@ func _ready():
 
 func _process(delta: float):
 	if not done:
+		limit += delta
 		if state == COUNT_DISTANCE:
+			
+			if limit >= 5.0:
+				dist_display = Values.distance
+				dist_txt.text = str(dist_display)
+				
 			if dist_display == Values.distance:
 				state = COUNT_SCORE
+				limit = 0.0
 			else:
 				dist_display += 1
 				dist_txt.text = str(dist_display)
 		elif state == COUNT_SCORE:
+			
+			if limit >= 5.0:
+				score_display = Values.run_score
+				score_txt.txt = str(score_display)
+				
 			if score_display == Values.run_score:
 				state = WAIT_DISPLAY_TOTAL
+				limit = 0.0
 			else:
 				score_display += 1
 				score_txt.text = str(score_display)
@@ -46,6 +60,11 @@ func _process(delta: float):
 			anim.play("show total")
 			avoid_retrigger = true
 		elif state == COUNT_TOTAL:
+			
+			if limit >= 5.0:
+				total_display = Values.distance + Values.run_score
+				total_txt.text = str(total_display)
+			
 			if total_display == Values.distance + Values.run_score \
 			and not anim.current_animation == "conceal":
 				await get_tree().create_timer(1.0).timeout

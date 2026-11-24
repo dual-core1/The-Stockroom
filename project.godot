@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The Stockroom"
-run/main_scene="uid://vj2wo18dw2qx"
+run/main_scene="uid://cojm6enb31ntp"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
